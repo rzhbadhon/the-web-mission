@@ -1,0 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * globals.css — base + the wm-* animation keyframes the invitation components
+ * reference. Every keyframe lives here so the components stay clean.
+ * ────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* The Web Mission palette */
+  --wm-bg: #07070d;
+  --wm-fg: #fef0f0;
+  --wm-accent: #e62429;
+
+  /* shadcn/ui semantic tokens (dark by default — the experience is dark) */
+  --background: 240 8% 5%;
+  --foreground: 0 80% 95%;
+  --card: 240 8% 8%;
+  --card-foreground: 0 80% 95%;
+  --popover: 240 8% 8%;
+  --popover-foreground: 0 80% 95%;
+  --primary: 354 81% 53%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 8% 14%;
+  --secondary-foreground: 0 80% 95%;
+  --muted: 240 8% 14%;
+  --muted-foreground: 0 0% 70%;
+  --accent: 354 81% 53%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 80% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 22%;
+  --input: 0 0% 22%;
+  --ring: 354 81% 53%;
+  --radius: 0.75rem;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html,
+body {
+  background: var(--wm-bg);
+  color: var(--wm-fg);
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Noto Sans SC",
+    "Noto Sans Bengali",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+}
+
+/* the display font — replace with your own brand font if you like */
+.font-display {
+  font-family: "Bebas Neue", "Oswald", "Impact", system-ui, sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.font-mono {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, "Cascadia Code",
+    Menlo, Consolas, monospace;
+}
+
+/* ── twinkle (stars & windows) ───────────────────────────────────────── */
+@keyframes wm-twinkle {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 1;    }
+}
+.wm-twinkle { animation: wm-twinkle 3s ease-in-out infinite; }
+
+/* ── rising embers (welcome + booked) ────────────────────────────────── */
+@keyframes wm-ember-rise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0;
+  }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.6; }
+  100% {
+    transform:
+      translate3d(var(--wm-drift, 0), -88vh, 0)
+      scale(0.4);
+    opacity: 0;
+  }
+}
+.wm-ember {
+  position: absolute;
+  bottom: -8%;
+  border-radius: 9999px;
+  animation-name: wm-ember-rise;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
+
+/* ── golden dust (IELTS stage) ────────────────────────────────────────── */
+@keyframes wm-dust-fall {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  10% { opacity: 0.85; }
+  90% { opacity: 0.7;  }
+  100% {
+    transform: translate3d(var(--wm-drift, 0), 80vh, 0);
+    opacity: 0;
+  }
+}
+.wm-dust {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 224, 160, 0.95),
+    rgba(255, 200, 120, 0) 70%
+  );
+  animation-name: wm-dust-fall;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
+
+/* ── rose petals (heart stage) ────────────────────────────────────────── */
+@keyframes wm-petal-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  100% {
+    transform:
+      translate3d(var(--wm-sway, 40px), 92vh, 0)
+      rotate(var(--wm-spin, 480deg));
+    opacity: 0;
+  }
+}
+.wm-petal {
+  position: absolute;
+  border-radius: 50% 8% 50% 8%;
+  animation-name: wm-petal-fall;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
+
+/* ── fireflies (invite stage) ──────────────────────────────────────────── */
+@keyframes wm-fly-drift {
+  0%   { transform: translate3d(0, 0, 0);     opacity: 0.2; }
+  25%  { transform: translate3d(8px, -6px, 0); opacity: 1;   }
+  50%  { transform: translate3d(-4px, 4px, 0); opacity: 0.7; }
+  75%  { transform: translate3d(6px, -2px, 0); opacity: 1;   }
+  100% { transform: translate3d(0, 0, 0);     opacity: 0.2; }
+}
+.wm-fly {
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 240, 205, 0.95),
+    rgba(255, 240, 205, 0) 70%
+  );
+  box-shadow: 0 0 8px rgba(255, 240, 205, 0.55);
+  animation: wm-fly-drift ease-in-out infinite;
+}
+
+/* ── the slow aurora wash across the background ────────────────────────── */
+.wm-aurora {
+  background:
+    radial-gradient(60% 50% at 20% 10%, rgba(230, 36, 41, 0.12), transparent 70%),
+    radial-gradient(50% 60% at 85% 80%, rgba(255, 89, 117, 0.10), transparent 70%);
+  filter: blur(40px);
+  opacity: 0.55;
+}
+
+/* ── the bottom scan-line on the chapter bar ──────────────────────────── */
+.wm-scanline::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 -1px 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(230, 36, 41, 0.9),
+    transparent
+  );
+  animation: wm-scanline-move 4.2s linear infinite;
+}
+@keyframes wm-scanline-move {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%);  }
+}
+
+/* ── dew shimmer on the corner webs ───────────────────────────────────── */
+@keyframes wm-web-shimmer {
+  0%, 100% { opacity: 0.25; }
+  50%      { opacity: 1;    }
+}
+.wm-web-dew { animation: wm-web-shimmer 2.6s ease-in-out infinite; }
+
+/* ── chat bubble polish ───────────────────────────────────────────────── */
+.wm-bubble {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* ── reduced-motion respect ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .wm-twinkle,
+  .wm-ember,
+  .wm-dust,
+  .wm-petal,
+  .wm-fly,
+  .wm-web-dew,
+  .wm-scanline::after {
+    animation: none !important;
+  }
+}
