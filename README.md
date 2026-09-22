@@ -210,7 +210,6 @@ the-web-mission/
 │   ├── SETUP.md                       ← env + deployment + troubleshooting
 │   ├── CLOUDFLARE_TUNNEL.md           ← free tunnel setup (recommended)
 │   ├── VOICE_FREE_WINDOWS.md           ← fully free local STT/TTS on Windows
-│   └── GITHUB_PUSH.md                 ← how to push this to your own GitHub repo
 ├── public/                            ← static assets
 ├── .env.example                       ← all env vars, documented
 ├── .gitignore
